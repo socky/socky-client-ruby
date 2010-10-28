@@ -1,7 +1,7 @@
-require "yaml"
+require 'yaml'
 require 'json'
 
-require File.dirname(__FILE__) + '/socky/websocket'
+require File.dirname(__FILE__) + '/socky-client/websocket'
 
 module Socky
   
@@ -101,7 +101,11 @@ module Socky
           @socket.close if @socket && !@socket.tcp_socket.closed?
         end
       end
-      res.collect {|r| JSON.parse(r)["body"] } if response
+      if response
+        res.collect {|r| JSON.parse(r)["body"] }
+      else
+        true
+      end
     end
 
   end

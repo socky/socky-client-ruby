@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Socky do
   it "should have config in hash form" do
-    Socky::CONFIG.should_not be_nil
-    Socky::CONFIG.class.should eql(Hash)
+    Socky.config.should_not be_nil
+    Socky.config.class.should eql(Hash)
   end
   
   it "should have host list taken from config" do
-    Socky.hosts.should eql(Socky::CONFIG[:hosts])
+    Socky.hosts.should eql(Socky.config[:hosts])
   end
   
   context "#send" do

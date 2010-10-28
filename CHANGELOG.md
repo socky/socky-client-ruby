@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## Edge
+
+- new features:
+  - change config_path and config from constant to method
+- bugfixes:
+  - none
+
 ## 0.4.1 / 2010-10-28
 
 - new features:

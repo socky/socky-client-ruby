@@ -4,14 +4,17 @@ require 'json'
 require File.dirname(__FILE__) + '/socky-client/websocket'
 
 module Socky
-  
-  unless defined?(CONFIG_PATH)
-    CONFIG_PATH = "socky_hosts.yml"
-  end 
-
-  CONFIG = YAML.load_file(CONFIG_PATH).freeze
 
   class << self
+    
+    attr_accessor :config_path
+    def config_path
+      @config_path ||= 'socky_hosts.yml'
+    end
+    
+    def config
+      @config ||= YAML.load_file(config_path).freeze
+    end
 
     def send(*args)
       options = normalize_options(*args)
@@ -23,7 +26,7 @@ module Socky
     end
 
     def hosts
-      CONFIG[:hosts]
+      config[:hosts]
     end
 
   private

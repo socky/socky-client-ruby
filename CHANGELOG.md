@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Edge
+## 0.4.1 / 2010-10-28
 
 - new features:
   - none

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## Edge
+
+- new features:
+  - new, simpler syntax
+- bugfixes
+  - none
+
 ## 0.4.2 / 2010-10-29
 
 - new features:

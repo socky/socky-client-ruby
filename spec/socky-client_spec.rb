@@ -37,6 +37,35 @@ describe Socky do
       end
     end
     context "should handle recipient conditions for" do
+      # New syntax
+      it ":client" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test", :to => { :clients => "first" }})
+        Socky.send("test", :client => "first")
+      end
+      it ":clients" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test", :to => { :clients => ["first","second"] }})
+        Socky.send("test", :clients => ["first","second"])
+      end
+      it ":channel" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test", :to => { :channels => "first" }})
+        Socky.send("test", :channel => "first")
+      end
+      it ":channels" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test", :to => { :channels => ["first","second"] }})
+        Socky.send("test", :channels => ["first","second"])
+      end
+      it "combination" do
+        Socky.should_receive(:send_data).with({
+          :command => :broadcast,
+          :body => "test",
+          :to => {
+            :clients => "allowed_user",
+            :channels => "allowed_channel"
+          }
+        })
+        Socky.send("test", :clients => "allowed_user", :channels => "allowed_channel")
+      end      
+      # Old syntax
       it ":to => :client" do
         Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test", :to => { :clients => "first" }})
         Socky.send("test", :to => { :client => "first" })
@@ -93,6 +122,17 @@ describe Socky do
       end
     end
     context "should ignore nil value for" do
+      # New syntax
+      it ":clients" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test"})
+        Socky.send("test", :clients => nil)
+      end
+      it ":channels" do
+        Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test"})
+        Socky.send("test", :channels => nil)
+      end
+      
+      # Old syntax
       it ":to => :clients" do
         Socky.should_receive(:send_data).with({:command => :broadcast, :body => "test"})
         Socky.send("test", :to => { :clients => nil })
@@ -111,6 +151,17 @@ describe Socky do
       end
     end
     context "should handle empty array for" do
+      # New syntax
+      it ":clients by not sending message" do
+        Socky.should_not_receive(:send_data)
+        Socky.send("test", :clients => [])
+      end
+      it ":channels by not sending message" do
+        Socky.should_not_receive(:send_data)
+        Socky.send("test", :channels => [])
+      end
+      
+      # Old syntax
       it ":to => :clients by not sending message" do
         Socky.should_not_receive(:send_data)
         Socky.send("test", :to => { :clients => [] })

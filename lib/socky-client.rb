@@ -1,5 +1,6 @@
-require 'yaml'
 require 'json'
+require 'logger'
+require 'yaml'
 
 require File.dirname(__FILE__) + '/socky-client/websocket'
 
@@ -7,7 +8,7 @@ module Socky
 
   class << self
     
-    attr_accessor :config_path
+    attr_accessor :config_path, :logger
     def config_path
       @config_path ||= 'socky_hosts.yml'
     end
@@ -27,6 +28,14 @@ module Socky
 
     def hosts
       config[:hosts]
+    end
+    
+    def logger
+      @logger ||= Logger.new(STDOUT)
+    end
+    
+    def deprecation_warning(msg)
+      logger.warn "DEPRECATION WARNING: " + msg.to_s
     end
 
   private
@@ -48,6 +57,16 @@ module Socky
     def send_message(data, opts = {})
       to = opts[:to] || {}
       except = opts[:except] || {}
+      
+      # Move to new syntax
+      if opts[:to] || opts[:except]
+        deprecation_warning "Using of :to and :except will be removed in next version - please move to new syntax."        
+      end
+      to[:client]   ||= opts[:client]
+      to[:clients]  ||= opts[:clients]
+      to[:channel]  ||= opts[:channel]
+      to[:channels] ||= opts[:channels]
+      # end of new syntax
 
       unless to.is_a?(Hash) && except.is_a?(Hash)
         raise "recipiend data should be in hash format"

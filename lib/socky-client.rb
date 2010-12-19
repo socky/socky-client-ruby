@@ -62,10 +62,10 @@ module Socky
       return if  (channels.is_a?(Array) && channels.empty?) || (users.is_a?(Array) && users.empty?)
 
       hash = {
-        :command  => :broadcast,
-        :data     => data,
-        :channels => channels,
-        :users    => users
+        :cmd => 'b',      # Command => 'broadcast'
+        :d   => data,     # Data
+        :c   => channels, # Channels
+        :u   => users     # Users
       }
 
       hash.reject! { |key,val| val.nil? }
@@ -75,8 +75,8 @@ module Socky
 
     def send_query(type)
       hash = {
-        :command  => :query,
-        :data     => type
+        :cmd => 'q', # Command => 'query'
+        :d   => type # Data
       }
       send_data(hash, true)
     end
@@ -96,7 +96,7 @@ module Socky
         end
       end
       if response
-        res.collect {|r| JSON.parse(r)["data"] }
+        res.collect {|r| JSON.parse(r)["d"] }
       else
         true
       end

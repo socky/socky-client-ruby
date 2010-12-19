@@ -1,11 +1,19 @@
 Changelog
 =========
 
+## Edge
+
+- new features:
+  - completly move to new syntax and remove old one
+  - update communication API
+- bugfixes:
+  - none
+
 ## 0.4.3 / 2010-10-30
 
 - new features:
   - new, simpler syntax
-- bugfixes
+- bugfixes:
   - none
 
 ## 0.4.2 / 2010-10-29

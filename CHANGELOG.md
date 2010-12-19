@@ -5,6 +5,7 @@ Changelog
 
 - new features:
   - completly move to new syntax and remove old one
+  - rename 'client' to 'user' due to multiple confusion reports
   - update communication API
 - bugfixes:
   - none

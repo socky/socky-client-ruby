@@ -55,17 +55,17 @@ module Socky
     end
 
     def send_message(data, opts = {})
-      clients = opts[:client] || opts[:clients]
       channels = opts[:channel] || opts[:channels]
+      users = opts[:user] || opts[:users]
 
-      # If clients or channels are non-nil but empty then there's no users to target message
-      return if (clients.is_a?(Array) && clients.empty?) || (channels.is_a?(Array) && channels.empty?)
+      # If channels or users are non-nil but empty then there's no users to target message
+      return if  (channels.is_a?(Array) && channels.empty?) || (users.is_a?(Array) && users.empty?)
 
       hash = {
         :command  => :broadcast,
         :data     => data,
-        :clients  => clients,
-        :channels => channels
+        :channels => channels,
+        :users    => users
       }
 
       hash.reject! { |key,val| val.nil? }

@@ -31,6 +31,31 @@ You can also build it after clonning(this will require Jeweler gem)
     rake gemspec
     rake build
 
+## Configuration
+
+Configuration file is located in application directory:
+
+    socky_hosts.yml
+
+In this file you should have array of hosts together with configuration of each.
+
+Default configuration should like something like that:
+
+    :hosts:
+      - :host: 127.0.0.1
+        :port: 8080
+        :secret: my_secret_key
+        :secure: false
+
+### Configuration Settings
+
+| *Setting* | *Value format* | *Description*                        |
+| --------- | -------------- | ------------------------------------ |
+| `:host`   | `[string]`     | IP or host where socky server exists
+| `:port`   | `[integer]`    | Port on with socky server listens
+| `:secret` | `[string]`     | Key that will be provided to authenticate to this server(must match secret key in server configuration
+| `:secure` | `[boolean]`    | Set wss/SSL mode for that host
+
 ## Usage
 
 ### Socky.send method
@@ -72,31 +97,6 @@ This will be received by user with "user1" and ["channel1", "channel2"] but not 
 Additionaly you have method to show all connected users:
 
     Socky.show_connections
-
-## Configuration
-
-Configuration file is located in application directory:
-
-    socky_hosts.yml
-
-In this file you should have array of hosts together with configuration of each.
-
-Default configuration should like something like that:
-
-    :hosts:
-      - :host: 127.0.0.1
-        :port: 8080
-        :secret: my_secret_key
-        :secure: false
-
-### Configuration Settings
-
-| *Setting* | *Value format* | *Description*                        |
-| --------- | -------------- | ------------------------------------ |
-| `:host`   | `[string]`     | IP or host where socky server exists
-| `:port`   | `[integer]`    | Port on with socky server listens
-| `:secret` | `[string]`     | Key that will be provided to authenticate to this server(must match secret key in server configuration
-| `:secure` | `[boolean]`    | Set wss/SSL mode for that host
 
 ## License
 

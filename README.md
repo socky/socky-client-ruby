@@ -41,31 +41,31 @@ Socky client offers method to send data to WebSocket server. Easiest way to show
 
 This will send alert to all connected and authorized users.
 
-Send method offers 2 methods of filtering - by clients and channels.
+Send method offers 2 methods of filtering - by users and channels.
 
-#### Filtering by clients
+#### Filtering by users
 
-Socky.send can be used with :client or :clients option. You can provide list of clients to which message will be sent. It can be 1 string or array of strings - both keywords works exactly the same. Example:
+Socky.send can be used with :user or :users option. You can provide list of users to which message will be sent. It can be 1 string or array of strings - both keywords works exactly the same. Example:
 
-    Socky.send "alert('ok!');", :clients => ["client1", "client2"]
+    Socky.send "alert('ok!');", :users => ["user1", "user2"]
 
-This will send message to all users with "client" set to "client1" or "client2" and nobody else.
+This will send message to all users with "user" set to "user1" or "user2" and nobody else.
 
 #### Filtering by channels.
 
-This works exactly the same as filtering by clients. Keywords are :channel and :channels. Message will be received if client have at last one of channels on channel list.
+This works exactly the same as filtering by users. Keywords are :channel and :channels. Message will be received if user have at last one of channels on channel list.
 
     Socky.send "alert('ok!');", :channels => "channel1"
 
-This will be received both by clients with channels ["channel1"] and channels ["channel1", "channel2"] but will not be received by client with empty channel list or ["channel2"]
+This will be received both by users with channels ["channel1"] and channels ["channel1", "channel2"] but will not be received by user with empty channel list or ["channel2"]
 
 #### Merging both filters
 
-You can use both filters at the some time. In this case only users with both "clients" and "channels" requirement will receive message.
+You can use both filters at the some time. In this case only users with both "users" and "channels" requirement will receive message.
 
-    Socky.send "alert('ok!');", :clients => ["client1", "client2"], :channels => "channel1"
+    Socky.send "alert('ok!');", :users => ["user1", "user2"], :channels => "channel1"
 
-This will be received by client with "client1" and ["channel1", "channel2"] but not by "client2" and ["channel2"]
+This will be received by user with "user1" and ["channel1", "channel2"] but not by "user2" and ["channel2"]
 
 ### Other methods
 

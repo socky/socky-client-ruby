@@ -3,12 +3,7 @@ Changelog
 
 ## Edge
 
-- new features:
-  - completly move to new syntax and remove old one
-  - rename 'client' to 'user' due to multiple confusion reports
-  - update communication API
-- bugfixes:
-  - none
+
 
 ## 0.4.3 / 2010-10-30
 

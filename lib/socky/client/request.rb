@@ -40,7 +40,9 @@ module Socky
         }, {
           :secret => @client.secret,
           :method => :http
-        })
+        })['auth']
+      rescue => e
+        raise AuthenticationError, e.message
       end
       
     end

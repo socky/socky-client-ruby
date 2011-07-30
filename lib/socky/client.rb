@@ -107,6 +107,7 @@ module Socky
     rescue Socky::Client::Error => e
       Socky::Client.logger.error("#{e.message} (#{e.class})")
       Socky::Client.logger.debug(e.backtrace.join("\n"))
+      false
     end
     
     # Trigger event asynchronously using EventMachine::HttpRequest

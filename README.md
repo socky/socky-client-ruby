@@ -4,8 +4,8 @@ Also important information can be found on our [google group](http://groups.goog
 
 ## Installation
 
-```
-gem install socky-client
+``` bash
+$ gem install socky-client
 ```
 
 ## Usage

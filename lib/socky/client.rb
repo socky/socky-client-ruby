@@ -1,5 +1,6 @@
 # Mostly copied from pusher gem - they did great job and probably there are no reason to reinvent wheel ;)
-require 'client/request'
+autoload 'Logger', 'logger'
+require File.expand_path(File.dirname(__FILE__)) + '/client/request'
 
 module Socky
   class Client
@@ -70,7 +71,7 @@ module Socky
       
       channel = opts[:channel] || opts['channel']
       data = opts[:data] || opts['data']
-      raise ArgumentError, 'no channel provided'
+      raise ArgumentError, 'no channel provided' unless channel
       
       request = Socky::Client::Request.new(self, event, channel, data)
       
@@ -129,7 +130,7 @@ module Socky
       
       channel = opts[:channel] || opts['channel']
       data = opts[:data] || opts['data']
-      raise ArgumentError, 'no channel provided'
+      raise ArgumentError, 'no channel provided' unless channel
       
       request = Socky::Client::Request.new(self, event, channel, data)
       

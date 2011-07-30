@@ -12,7 +12,9 @@ Gem::Specification.new do |s|
   s.summary     = %q{Socky is a WebSocket server and client for Ruby}
   s.description = %q{Socky is a WebSocket server and client for Ruby}
   
-  s.add_dependency 'socky-authenticator', '0.5.0.beta2'
+  s.add_dependency 'crack', "~> 0.1.0"
+  s.add_dependency 'multi_json', '~> 1.0'
+  s.add_dependency 'socky-authenticator', '~> 0.5.0.beta4'
   s.add_development_dependency 'rspec', '~> 2.0'
 
   s.files         = `git ls-files`.split("\n")

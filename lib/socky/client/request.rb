@@ -1,32 +1,48 @@
 require 'socky/authenticator'
+require 'multi_json'
+require 'crack/core_extensions' # Used for Hash#to_params
 
 module Socky
-  module Client
+  class Client
     class Request
+      
+      attr_reader :client, :event, :channel, :data
 
-      def initialize(event, channel, options)
-        body = body_from_options(event, channel, options)
-        puts body.inspect
+      def initialize(client, event, channel, data = nil)
+        @client = client
+        @event = event
+        @channel = channel
+        @data = MultiJson.encode(data)
       end
-
+            
+      def timestamp
+        @timestamp ||= Time.now.to_i
+      end
+      
+      def body
+        content = {}
+        content['event'] = @event
+        content['channel'] = @channel
+        content['timestamp'] = timestamp
+        content['data'] = @data
+        content['auth'] = auth_string
+        content.to_params
+      end
+      
       private
-
-      def body_from_options(event, channel, options)
-        timestamp = Time.now.to_i
-        body = {}
-        body['event'] = event
-        body['channel'] = channel
-        body['timestamp'] = timestamp
-        body['data'] = options[:data] || options['data']
-        auth = Authenticator.authenticate({
-          'event' => event,
-          'channel' => channel,
-          'connection_id' => timestamp
-        }, false, Client.secret)
-        body['auth'] = auth['auth']
-        body
+      
+      def auth_string
+        Authenticator.authenticate({
+          :connection_id => timestamp,
+          :channel => @channel,
+          :event => @event,
+          :data => @data
+        }, {
+          :secret => @client.secret,
+          :method => :http
+        })
       end
-
+      
     end
   end
 end

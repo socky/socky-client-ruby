@@ -1,5 +1,5 @@
 module Socky
-  module Client
+  class Client
     VERSION = '0.5.0.pre'
   end
 end

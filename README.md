@@ -1,102 +1,34 @@
-Socky - client in Ruby
-===========
-
-Socky is push server for Ruby based on WebSockets. It allows you to break border between your application and client browser by letting the server initialize a connection and push data to the client.
-
-## Example
-
-You can try [live example](http://sockydemo.imanel.org) or view its [source code](http://github.com/socky/socky-example)
+# Socky - client in Ruby [![](http://travis-ci.org/socky/socky-client-ruby.png)](http://travis-ci.org/socky/socky-client-ruby)
 
 Also important information can be found on our [google group](http://groups.google.com/group/socky-users).
 
-## Install
+## Installation
 
-The best way to install Socky client is via RubyGems:
-
-    gem install socky-client
-    irb
-    require 'socky-client'
-
-Socky ruby client requires the json gem. It is automatically installed by the gem install command.
-
-Alternative method is to clone repo and use it directly:
-
-    git clone git://github.com/socky/socky-client-ruby.git
-    cd socky-client-ruby
-    irb
-    require 'lib/socky-client'
-
-You can also build it after clonning(this will require Jeweler gem)
-
-    rake gemspec
-    rake build
-
-## Configuration
-
-Configuration file is located in application directory:
-
-    socky_hosts.yml
-
-In this file you should have array of hosts together with configuration of each.
-
-Default configuration should like something like that:
-
-    :hosts:
-      - :host: 127.0.0.1
-        :port: 8080
-        :secret: my_secret_key
-        :secure: false
-
-### Configuration Settings
-
-| *Setting* | *Value format* | *Description*                        |
-| --------- | -------------- | ------------------------------------ |
-| `:host`   | `[string]`     | IP or host where socky server exists
-| `:port`   | `[integer]`    | Port on with socky server listens
-| `:secret` | `[string]`     | Key that will be provided to authenticate to this server(must match secret key in server configuration
-| `:secure` | `[boolean]`    | Set wss/SSL mode for that host
+```
+gem install socky-client
+```
 
 ## Usage
 
-### Socky.send method
+First require Socky Client:
 
-Socky client offers method to send data to WebSocket server. Easiest way to show that will be example:
+``` ruby
+require 'socky/client'
+```
 
-    Socky.send "alert('ok!');"
+Then createn new Client instance. Parameters required are full address of Socky Server(including app name) and secret of app.
 
-This will send alert to all connected and authorized users.
+``` ruby
+$socky_client = Socky::Client.new('http://ws.socky.org:3000/http/test_app', 'my_secret')
+```
 
-Send method offers 2 methods of filtering - by users and channels.
+This instance of Socky Client can trigger events for all users of server. To do so you can use one of methods:
 
-#### Filtering by users
-
-Socky.send can be used with :user or :users option. You can provide list of users to which message will be sent. It can be 1 string or array of strings - both keywords works exactly the same. Example:
-
-    Socky.send "alert('ok!');", :users => ["user1", "user2"]
-
-This will send message to all users with "user" set to "user1" or "user2" and nobody else.
-
-#### Filtering by channels.
-
-This works exactly the same as filtering by users. Keywords are :channel and :channels. Message will be received if user have at last one of channels on channel list.
-
-    Socky.send "alert('ok!');", :channels => "channel1"
-
-This will be received both by users with channels ["channel1"] and channels ["channel1", "channel2"] but will not be received by user with empty channel list or ["channel2"]
-
-#### Merging both filters
-
-You can use both filters at the some time. In this case only users with both "users" and "channels" requirement will receive message.
-
-    Socky.send "alert('ok!');", :users => ["user1", "user2"], :channels => "channel1"
-
-This will be received by user with "user1" and ["channel1", "channel2"] but not by "user2" and ["channel2"]
-
-### Other methods
-
-Additionaly you have method to show all connected users:
-
-    Socky.show_connections
+``` ruby
+$socky_client.trigger!('my_event', :channel => 'my_channel', :data => 'my data') # Will raise on error
+$socky_client.trigger('my_event', :channel => 'my_channel', :data => 'my data') # Will return false on error
+$socky_client.trigger_async('my_event', :channel => 'my_channel', :data => 'my data') # Async method
+```
 
 ## License
 

@@ -5,7 +5,7 @@ Also important information can be found on our [google group](http://groups.goog
 ## Installation
 
 ``` bash
-$ gem install socky-client
+$ gem install socky-client --pre
 ```
 
 ## Usage

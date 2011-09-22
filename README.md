@@ -22,6 +22,8 @@ Then createn new Client instance. Parameters required are full address of Socky 
 $socky_client = Socky::Client.new('http://ws.socky.org:3000/http/test_app', 'my_secret')
 ```
 
+Please note that Ruby Client is HTTP client(not WebSocket) so you need to user http protocol(instead of 'ws') and 'http' namespace(instead of 'websocket'). If you receive EOFError then you probably should double-check address ;)
+
 This instance of Socky Client can trigger events for all users of server. To do so you can use one of methods:
 
 ``` ruby

@@ -1,4 +1,5 @@
-# Socky - client in Ruby [![](https://travis-ci.org/socky/socky-client-ruby.png)](http://travis-ci.org/socky/socky-client-ruby)
+# Socky - client in Ruby
+[![Build Status](https://travis-ci.org/socky/socky-client-ruby.png)](http://travis-ci.org/socky/socky-client-ruby) [![Dependency Status](https://gemnasium.com/socky/socky-client-ruby.png)](http://gemnasium.com/socky/socky-client-ruby)
 
 Also important information can be found on our [google group](http://groups.google.com/group/socky-users).
 
